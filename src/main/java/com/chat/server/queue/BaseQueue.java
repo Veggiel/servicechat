@@ -4,9 +4,6 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
 
 /**
- * <dd>Description:类描述</dd>
- * <dd>Copyright: 版权归杭州京歌科技有限公司所有</dd>
- * <dd>Company: 杭州京歌科技有限公司</dd>
  * <dd>Project_name servicechat</dd>
  * <dd>Package_name com.chat.server.queue</dd>
  * <dd>Author: libin </dd>
