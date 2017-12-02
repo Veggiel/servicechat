@@ -65,6 +65,6 @@ public class NettyCache {
      * @param msgEntity
      */
     public static void sendServerMsg(MsgEntity msgEntity){
-
+        msgEntity.getChannel().writeAndFlush(msgEntity);
     }
 }

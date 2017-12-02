@@ -59,6 +59,13 @@ public class MsgHandlerDemo extends ConstantHandler {
                     break;
                 }
             }
+        }else {
+            SayHelloResp sayHelloResp = SayHelloResp.newBuilder().setContent(name+"已登录，请勿重复登录!").setSpeaker("系统").build();;
+            MsgEntity  helloMsg = new MsgEntity();
+            helloMsg.setCmdCode(CmdConstant.SAY_HELLO);
+            helloMsg.setData(sayHelloResp.toByteArray());
+            helloMsg.setChannel(msgEntity.getChannel());
+            NettyCache.sendServerMsg(helloMsg);
         }
     DemoProto.NameCheckResp.Builder resq = DemoProto.NameCheckResp.newBuilder();
         if(!isExist){
@@ -88,7 +95,7 @@ public class MsgHandlerDemo extends ConstantHandler {
             msgEntity.setData(resp.toByteArray());
             NettyCache.sendMsg(msgEntity);
         } else {
-            System.err.println("玩家不存在");
+            System.err.println("用户不存在");
         }
 
     }

@@ -5,6 +5,7 @@ import com.chat.server.queue.CommonQueue;
 import com.chat.server.queue.LoginQueue;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 /**
  * <dd>Project_name servicechat</dd>
@@ -20,7 +21,10 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<MsgEntity> {
             return;
         }
         msg.setChannel(ctx.channel());
-        System.out.println("客户端发送的数据="+new String(msg.getData(),"UTF-8"));
+        String msgStr = new String(msg.getData(),"UTF-8");
+        //传过来的消息带了一个换行符和空格，这里给去掉了
+        System.out.println("客户端发送的数据="+msgStr.substring(2));
+//        System.out.println("length="+(new String(msg.getData()).length()));
 
         // int playerid = ServerCache.get(ctx.channel());
 
