@@ -1,5 +1,6 @@
 package com.chat.server.cache;
 
+import com.chat.server.constants.CmdConstant;
 import com.chat.server.entity.MsgEntity;
 import com.chat.server.entity.PlayerEntity;
 import gnu.trove.impl.sync.TSynchronizedObjectIntMap;
@@ -8,6 +9,7 @@ import gnu.trove.map.hash.TIntObjectHashMap;
 import gnu.trove.map.hash.TObjectIntHashMap;
 import io.netty.channel.Channel;
 
+import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 /**
@@ -67,4 +69,27 @@ public class NettyCache {
     public static void sendServerMsg(MsgEntity msgEntity){
         msgEntity.getChannel().writeAndFlush(msgEntity);
     }
-}
+    //这是一个比较low的向指定某一个用户发消息，用户客户端之间的聊天，本demo中没有使用
+    public static void sendTheUserMsg(MsgEntity msgEntity) throws UnsupportedEncodingException {
+        if (msgEntity.getCmdCode() != CmdConstant.NAME_CHECK) {
+            if (CLIENT_MAP != null) {
+                if (CLIENT_MAP.get(msgEntity.getChannel()) != null) {
+                    CLIENT_MAP.get(msgEntity.getChannel()).writeAndFlush(msgEntity);
+                } else {
+                    for (Channel c : SERVICE_SET) {
+                        if (msgEntity.getChannel().equals(c)) {
+                            String str = new String(msgEntity.getData(), "UTF-8");
+                            String veg = str.replace("\n", "").substring(5, 8);
+                            for (String st : CLIENT_LIST.keySet()) {
+                                if (veg.equals(st)) {
+                                    CLIENT_LIST.get(st).writeAndFlush(msgEntity);
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    }

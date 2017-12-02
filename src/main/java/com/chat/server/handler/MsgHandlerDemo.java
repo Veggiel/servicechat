@@ -52,7 +52,7 @@ public class MsgHandlerDemo extends ConstantHandler {
             if (msgEntity.getStatus() == 0 && !NettyCache.SERVICE_SET.contains(msgEntity.getChannel())){
                 NettyCache.SERVICE_SET.add(msgEntity.getChannel());
                 System.out.println(name+"登录了");
-            }else if (msgEntity.getStatus()==1 && !NettyCache.SERVICE_SET.isEmpty()){
+            }else if (msgEntity.getStatus()==1 && !NettyCache.SERVICE_SET.isEmpty()){ //客服的status是1 其他用户的status是0
                 for (Channel c: NettyCache.SERVICE_SET) { //因为是demo，所以此处只有一个客服
                     NettyCache.CLIENT_MAP.put(c,msgEntity.getChannel());
                     System.out.println(name+"登录了");
@@ -97,6 +97,5 @@ public class MsgHandlerDemo extends ConstantHandler {
         } else {
             System.err.println("用户不存在");
         }
-
     }
 }
