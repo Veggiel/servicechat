@@ -26,9 +26,9 @@ public class NettyCache {
     public final static TObjectIntMap<Channel> CHANNEL_PLAYER = new TSynchronizedObjectIntMap<Channel>(new TObjectIntHashMap<Channel>());
     public final static TIntObjectHashMap<PlayerEntity> PLAYERS_MAP = new TIntObjectHashMap<PlayerEntity>();
     public final static TObjectIntHashMap<String> NAME_MAPS = new TObjectIntHashMap<String>();
-    public final static Set<Channel> SERVICE_SET = new LinkedHashSet<>();
-    public final static Map<Channel, Channel> CLIENT_MAP = new LinkedHashMap<>();
-    public final static Map<String, Channel> CLIENT_LIST = new HashMap<>();
+    public final static Set<Channel> SERVICE_SET = new LinkedHashSet<Channel>();
+    public final static Map<Channel, Channel> CLIENT_MAP = new LinkedHashMap<Channel, Channel>();
+    public final static Map<String, Channel> CLIENT_LIST = new HashMap<String, Channel>();
 
     public static int get(Channel channel) {
         return CHANNEL_PLAYER.get(channel);
